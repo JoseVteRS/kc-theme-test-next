@@ -1,0 +1,32 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/auth/:path*",
+      "destination": "https://api.eks-stage01.gigndvr.com/auth/:path*"
+    },
+    {
+      "source": "/realms/:path*",
+      "destination": "https://api.eks-stage01.gigndvr.com/realms/:path*"
+    },
+    {
+      "source": "/assets/:path*",
+      "destination": "https://kc-theme-test-next.vercel.app/assets/:path*"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/auth/:path*",
+      "headers": [
+        {
+          "key": "X-Real-IP",
+          "value": "${request.headers.x-forwarded-for}"
+        },
+        {
+          "key": "X-Forwarded-For",
+          "value": "${request.headers.x-forwarded-for}"
+        }
+      ]
+    }
+  ]
+}
