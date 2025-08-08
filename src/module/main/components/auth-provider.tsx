@@ -37,3 +37,5 @@ export const AuthProvider: FCWithChildren<unknown> = memo(({ children }) => {
 
   return <OIAuthProvider {...oidcConfig}>{children}</OIAuthProvider>;
 });
+
+AuthProvider.displayName = 'AuthProvider';

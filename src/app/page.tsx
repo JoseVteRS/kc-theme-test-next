@@ -1,5 +1,10 @@
-import { Main } from "@/module/main/main";
-import Image from "next/image";
+"use client";
+
+import dynamic from "next/dynamic";
+
+const Main = dynamic(() => import("@/module/main/main").then(m => m.Main), {
+  ssr: false,
+});
 
 export default function Home() {
   return (
