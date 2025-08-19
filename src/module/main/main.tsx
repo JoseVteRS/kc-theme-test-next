@@ -4,29 +4,34 @@ import { memo } from "react";
 import { AuthProvider } from "./components/auth-provider";
 import { useAuth } from "react-oidc-context";
 import { KeycloakMain } from "../keycloak/main";
+import { SessionProvider, signIn, signOut, useSession } from "next-auth/react";
 
 function HomePage() {
-    const auth = useAuth();
-    const loggedInUser = auth.user;
+    // const auth = useAuth();
+    const session = useSession();
+    const loggedInUser = session.data?.user;
 
     const handleSignIn = () => {
-        auth.signinRedirect({
-            redirect_uri: window.location.origin,
-        });
+        signIn("keycloak")
+        // auth.signinRedirect({
+        //     redirect_uri: window.location.origin,
+        // });
     }
 
     const handleLogOut = () => {
-        auth.signoutRedirect({
-            post_logout_redirect_uri: window.location.origin,
-        });
+        // auth.signoutRedirect({
+        //     post_logout_redirect_uri: window.location.origin,
+        // });
+        signOut()
     }
+
 
     if (loggedInUser) {
         return (
             <>
                 <h1>Welcome!!</h1>
                 <p>
-                    <b>{loggedInUser.profile.name}</b>, you are logged in! 🚀
+                    <b>{loggedInUser.name}</b>, you are logged in! 🚀
                 </p>
                 <button onClick={() => handleLogOut()}>
                     Logout
@@ -62,9 +67,11 @@ export const Main = memo(() => {
     }
 
     return (
-        <AuthProvider>
+        // <AuthProvider>
+        <SessionProvider>
             <HomePage />
-        </AuthProvider>
+        </SessionProvider>
+        // </AuthProvider>
     );
 });
 
