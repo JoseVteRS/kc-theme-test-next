@@ -11,7 +11,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             // response_type: 'code',
           }
         },
-        clientId: process.env.NEXT_PUBLIC_TENANT_ID,
+        clientId: process.env.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID,
         clientSecret: "",
         issuer: `${process.env.NEXT_PUBLIC_AUTH_ENDPOINT}realms/${process.env.NEXT_PUBLIC_KEYCLOAK_REALM}`
       })
